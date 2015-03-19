@@ -15,16 +15,14 @@ public class Monster {
     private Prize prize;
     private BadConsequence badConsequence;
     
-    public Monster(String name, int combatLevel, 
-            BadConsequence bc,
-            Prize prize){
+    public Monster(String name, int combatLevel,
+            Prize prize, 
+            BadConsequence bc){
         this.name = name;
         this.combatLevel = combatLevel;
         this.prize = prize;
         this.badConsequence = bc;
     }
-    
-
     
     public String getName(){
         return this.name;
@@ -32,6 +30,18 @@ public class Monster {
     
     public int getCombatLevel(){
         return this.combatLevel;
+    }
+    
+    public Prize getPrize(){
+        return this.prize;
+    }
+    
+    public BadConsequence getBadConsequence(){
+        return this.badConsequence;
+    }
+                
+    public String toString(){
+        return this.name + " [lvl " + Integer.toString(this.combatLevel) + "]";
     }
     
 }

@@ -26,4 +26,9 @@ public class Prize {
         return this.treasures;
     }
     
+    public String toString(){
+        return Integer.toString(this.treasures) + " treasures & " +
+                Integer.toString(this.levels) + " levels";
+    }
+    
 }

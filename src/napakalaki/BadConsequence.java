@@ -68,6 +68,17 @@ public class BadConsequence {
     public boolean getDeath(){
         return death;
     }
+    
+    public ArrayList <TreasureKind> getVisibleTreasures(){
+        return this.specificVisibleTreasures;
+    }
+    
+    public ArrayList <TreasureKind> getHiddenTreasures(){
+        return this.specificHiddenTreasures;
+    }
 
+    public String toString(){
+        return "Thug life over 9000";
+    }
     
 }
