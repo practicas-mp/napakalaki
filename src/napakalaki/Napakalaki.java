@@ -141,7 +141,7 @@ public class Napakalaki {
         }
         
         System.out.println("Monstruos cuyo mal rollo implica sólo pérdida de niveles:");
-        for (Monster m: monsters){
+        for (Monster m: monsters){            
             if (m.getBadConsequence().getNumberOfVisibleTreasures() == 0 && m.getBadConsequence().getNumberOfHiddenTreasures() == 0 && m.getBadConsequence().getDeath() == false){
                 System.out.println(m.toString());
             }
@@ -156,11 +156,10 @@ public class Napakalaki {
         
         System.out.println("Monstruos que te hacen perder armas de una mano:");
         
-        ArrayList<TreasureKind> specificTreasures;
+        
         outmost: for (Monster m: monsters) {
    
-            specificTreasures = new ArrayList<TreasureKind>();
-            //ArrayList<TreasureKind> specificTreasures = m.getBadConsequence().getVisibleTreasures();
+            ArrayList<TreasureKind> specificTreasures = new ArrayList<TreasureKind>();
             specificTreasures.addAll(m.getBadConsequence().getVisibleTreasures());
             specificTreasures.addAll(m.getBadConsequence().getHiddenTreasures());
 
@@ -170,16 +169,6 @@ public class Napakalaki {
                     continue outmost;
                 }
             }
-            /*
-            specificTreasures = m.getBadConsequence().getHiddenTreasures();
-            
-            for (TreasureKind treasure: m.getBadConsequence().getHiddenTreasures()) {
-                if (treasure == TreasureKind.ONEHAND){
-                    System.out.println(m.toString());
-                    break;
-                }
-            }
-            */
         }
         
         

@@ -26,11 +26,17 @@ public class BadConsequence {
         this.levels = levels;
         this.nVisibleTreasures = nVisible;
         this.nHiddenTreasures = nHidden;
+        
+        specificHiddenTreasures = new ArrayList<TreasureKind>();
+        specificVisibleTreasures = new ArrayList<TreasureKind>();
     }
     
     public BadConsequence(String text, boolean death){
         this.text = text;
         this.death = death;
+        
+        specificHiddenTreasures = new ArrayList<TreasureKind>();
+        specificVisibleTreasures = new ArrayList<TreasureKind>();
     }
     
     public BadConsequence(
