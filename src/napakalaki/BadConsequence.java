@@ -71,7 +71,7 @@ public class BadConsequence {
         return nHiddenTreasures;
     }
     
-    public boolean getDeath(){
+    public boolean kills(){
         return death;
     }
     
@@ -82,9 +82,18 @@ public class BadConsequence {
     public ArrayList <TreasureKind> getHiddenTreasures(){
         return this.specificHiddenTreasures;
     }
+    
+    public boolean isEmpty(){
+        return levels == 0 &&
+                nVisibleTreasures == 0 &&
+                nHiddenTreasures == 0 &&
+                death == false &&
+                specificHiddenTreasures.isEmpty() &&
+                specificVisibleTreasures.isEmpty();
+    }
 
     public String toString(){
-        return "Thug life over 9000";
+        return this.text;
     }
     
 }
