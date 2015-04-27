@@ -28,7 +28,7 @@ public class Monster {
         return this.name;
     }
     
-    public int getCombatLevel(){
+    public int getLevel(){
         return this.combatLevel;
     }
     

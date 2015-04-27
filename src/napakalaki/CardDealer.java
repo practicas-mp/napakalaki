@@ -33,26 +33,40 @@ public class CardDealer {
     }
     
     private void shuffleTreasures() {
-        Collections.shuffle(unusedTreasures);
+        Collections.shuffle(this.unusedTreasures);
     }
     
     private void shuffleMonsters () {
-        Collections.shuffle(unusedMonsters);
+        Collections.shuffle(this.unusedMonsters);
     }
     
-    public CardDealer getInstance(){
+    public static CardDealer getInstance(){
         if (instance == null)
             instance = new CardDealer();
         
         return instance;
     }
     
-    public Treasure nextTreasure() {
-        return null;
+    public Treasure nextTreasure(){
+        if(this.unusedTreasures.isEmpty()){
+           this.unusedTreasures = this.usedTreasures;
+           this.usedTreasures.clear();
+           this.shuffleTreasures();
+        }
+        
+        return this.unusedTreasures.remove(0);
     }
     
     public Monster nextMonster() {
-        return null;
+        if(this.unusedMonsters.isEmpty()){
+           this.unusedMonsters = this.usedMonsters;
+           this.usedMonsters.clear();
+           this.shuffleMonsters();
+        }
+        
+        Monster last = this.unusedMonsters.remove(0);
+        this.usedMonsters.add(last);
+        return last;
     }
     
     public void giveTreasureBack(Treasure t){

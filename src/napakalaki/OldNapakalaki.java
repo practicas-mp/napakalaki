@@ -18,8 +18,9 @@ public class OldNapakalaki {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Examen2 examen = Examen2.getInstance(0);
         
-             
+        examen.run();
     }
     
 }
