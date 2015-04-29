@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package Model;
 
 import java.util.ArrayList;
 
@@ -22,18 +22,25 @@ public class Player {
     
     private final int MAXHIDDENTREASURES = 4;
     
+    public Player(String name){
+        this.level = 1;
+        this.name = name;
+        this.visibleTreasures = new ArrayList <Treasure>();
+        this.hiddenTreasures = new ArrayList <Treasure>();
+    }
+    
     private void bringToLife() {
-        dead = true;
+        dead = false;
     }
     
     private void incrementLevels(int levels) {
         level += levels;
-        level = Math.max(10, level);
+        level = Math.min(10, level);
     }
     
     private void decrementLevels(int levels) {
         level -= levels;
-        level = Math.min(1, level);
+        level = Math.max(1, level);
     }
     
     private void setPendingBadConsequence(BadConsequence b) {
@@ -43,11 +50,20 @@ public class Player {
     private void die() {
         this.dead = true;
         this.level = 1;
+        
+        for(Treasure t: this.visibleTreasures){
+            CardDealer.getInstance().giveTreasureBack(t);
+        }
+        
+        for(Treasure t: this.hiddenTreasures){
+            CardDealer.getInstance().giveTreasureBack(t);
+        }
+        
         this.visibleTreasures.clear();
         this.hiddenTreasures.clear();
     }
     
-    private void discardNecklaceVisible(){
+    private void discardNecklaceIfVisible(){
         for(int i = 0; i < this.visibleTreasures.size(); ++i){
             if(this.visibleTreasures.get(i).getType() == TreasureKind.NECKLACE){
                 CardDealer.getInstance().giveTreasureBack(this.visibleTreasures.get(i));
@@ -58,22 +74,22 @@ public class Player {
     
     private void dieIfNoTreasures() {
         if (this.hiddenTreasures.isEmpty() && this.visibleTreasures.isEmpty()) {
-            die();
+            this.die();
         }
     }
         
     private boolean canIBuyLevels(int levels) {
-        return this.level + levels < 10; // The player is able to buy more levels whenever those levels do not make him win
+        return this.level + levels < 10;  // The player is able to buy more levels whenever those levels do not make him win
     }
     
-    protected float computeGoldCoinsValue(ArrayList <Treasure> treasures){
+    protected double computeGoldCoinsValue(ArrayList <Treasure> treasures){
         int value = 0;
         
         for(Treasure t: treasures){
             value += t.getGoldCoins();
         }
         
-        return value / 1000;
+        return value / (double) 1000;
         
     }
     
@@ -89,6 +105,7 @@ public class Player {
     
     public CombatResult combat(Monster monster){ 
         int lvl = this.getCombatLevel(), monsterLevel = monster.getLevel();
+        CombatResult result;
         
         if(lvl > monsterLevel){
             this.applyPrize(monster.getPrize());
@@ -96,15 +113,19 @@ public class Player {
             return this.level < 10 ? CombatResult.WIN : CombatResult.WINANDWINGAME;
         } else {
             if(Dice.getInstance().nextNumber() >= 5){
-                return CombatResult.LOSEANDESCAPE;
+                result = CombatResult.LOSEANDESCAPE;
             } else if(monster.getBadConsequence().kills()){
                 this.die();
-                return CombatResult.LOSEANDDIE;
+                result = CombatResult.LOSEANDDIE;
             } else {
                 this.applyBadConsequence(monster.getBadConsequence());
-                return CombatResult.LOSE;
+                result = CombatResult.LOSE;
             }
         }
+        
+        this.discardNecklaceIfVisible();
+        
+        return result;
         
     }
     
@@ -147,6 +168,7 @@ public class Player {
     public boolean makeTreasureVisible(Treasure t){
         if(this.canMakeTreasureVisible(t)){
             this.visibleTreasures.add(t);
+            this.hiddenTreasures.remove(t);
             return true;
         }
         
@@ -154,18 +176,29 @@ public class Player {
     }
 
     public void discardVisibleTreasure(Treasure t){
+        this.visibleTreasures.remove(t);
         
+        if(this.pendingBadConsequence != null){
+            this.pendingBadConsequence.substractVisibleTreasure(t);
+        }
     }
     
-    public void discardHiddenTreasure(Treasure t) { }
+    public void discardHiddenTreasure(Treasure t){
+        this.hiddenTreasures.remove(t);
+        
+        if(this.pendingBadConsequence != null){
+            this.pendingBadConsequence.substractHiddenTreasure(t);
+        }
+    }
     
     public boolean buyLevels(ArrayList<Treasure> visible,  ArrayList<Treasure> hidden) {
         double levels = this.computeGoldCoinsValue(visible);
         levels += this.computeGoldCoinsValue(hidden);
-        levels = (int) Math.floor(levels);
         
-        if(this.canIBuyLevels(levels)){
-            this.incrementLevels(levels);
+        int int_levels = (int) levels;
+        
+        if(this.canIBuyLevels(int_levels)){
+            this.incrementLevels(int_levels);
             
             for(Treasure t: visible){
                 this.discardVisibleTreasure(t);
@@ -192,10 +225,17 @@ public class Player {
         return combatLevel; 
     } 
 
-    public boolean validState() { 
-        return (pendingBadConsequence == null) && hiddenTreasures.size() < 4;
+    public boolean validState() {
+        if(this.hiddenTreasures.size() > 4){
+            System.out.println("muxios teosoros!!1!");
+        }
+        
+        return (this.pendingBadConsequence == null || this.pendingBadConsequence.isEmpty()) 
+                    && this.hiddenTreasures.size() <= 4;
     }
     public void initTreasures(){
+        this.bringToLife();
+        
         int roll = Dice.getInstance().nextNumber(), treasures;
         
         switch(roll){
@@ -219,16 +259,14 @@ public class Player {
     }
     
     public boolean hasVisibleTreasures() { 
-        return !visibleTreasures.isEmpty();
+        return !this.visibleTreasures.isEmpty();
     }
-    public Player(String name) {
-        this.name = name;
+    
+    public ArrayList <Treasure> getVisibleTreasures() {
+        return this.visibleTreasures;
     }
-    public Treasure[] getVisibleTreasures() {
-        return null;
-    }
-    public Treasure[] getHiddenTreasures() {
-        return null;
+    public ArrayList <Treasure> getHiddenTreasures() {
+        return this.hiddenTreasures;
     }
     
     public Boolean isNecklaceVisible(){
@@ -240,15 +278,12 @@ public class Player {
         return false;
     }
     
-    // EXAMEN
-    
-    public void setVisibleTreasureList(ArrayList<Treasure> treasures){
-        this.visibleTreasures = treasures;
+    public String getName(){
+        return this.name;
     }
     
-    public void setHiddenTreasureList(ArrayList<Treasure> treasures){
-        this.hiddenTreasures = treasures;
+    @Override
+    public String toString(){
+        return this.getName() + "[lvl " + this.level + "]";
     }
-    
-    // FIN EXAMEN
 }

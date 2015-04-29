@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package Model;
 
 /**
  *
@@ -42,6 +42,12 @@ public class Treasure {
     
     public TreasureKind getType(){
         return type;
+    }
+    
+    @Override
+    public String toString(){
+        return this.name + " [" + this.minBonus + "/" + this.maxBonus + "] ::" + this.type
+                + " $" + this.goldCoins;
     }
     
 }

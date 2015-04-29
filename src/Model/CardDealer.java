@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package Model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,8 +28,6 @@ public class CardDealer {
         
         this.unusedTreasures = new ArrayList<Treasure>();
         this.usedTreasures = new ArrayList<Treasure>();
-        
-        initCards();
     }
     
     private void shuffleTreasures() {
@@ -49,9 +47,7 @@ public class CardDealer {
     
     public Treasure nextTreasure(){
         if(this.unusedTreasures.isEmpty()){
-           this.unusedTreasures = this.usedTreasures;
-           this.usedTreasures.clear();
-           this.shuffleTreasures();
+           this.initTreasureCardDeck();
         }
         
         return this.unusedTreasures.remove(0);
@@ -59,9 +55,7 @@ public class CardDealer {
     
     public Monster nextMonster() {
         if(this.unusedMonsters.isEmpty()){
-           this.unusedMonsters = this.usedMonsters;
-           this.usedMonsters.clear();
-           this.shuffleMonsters();
+           this.initMonsterCardDeck();
         }
         
         Monster last = this.unusedMonsters.remove(0);
@@ -80,14 +74,13 @@ public class CardDealer {
     }
     
     public void initCards() {
-        initTreasureCardDeck();
-        initMonsterCardDeck();
+        this.initTreasureCardDeck();
+        this.initMonsterCardDeck();
     }
     
-    
-    
-    void initTreasureCardDeck(){
-         
+    private void initTreasureCardDeck(){         
+        this.usedTreasures.clear();
+        
         this.unusedTreasures.add(new Treasure("¡Sí mi amo!", 0, 4, 7, TreasureKind.HELMET));
         this.unusedTreasures.add(new Treasure("Botas de investigación", 600, 3, 4, TreasureKind.SHOE));
         this.unusedTreasures.add(new Treasure("Capucha de Cthulhu", 500, 3, 5, TreasureKind.HELMET));   
@@ -120,10 +113,12 @@ public class CardDealer {
         this.unusedTreasures.add(new Treasure("Zapato deja-amigos", 500, 0, 1, TreasureKind.SHOE));
         this.unusedTreasures.add(new Treasure("Shogulador", 600, 1, 1, TreasureKind.BOTHHANDS));
         this.unusedTreasures.add(new Treasure("Varita de atizamiento", 400, 3, 4, TreasureKind.ONEHAND));
-        
+     
+        this.shuffleTreasures();
     }
     
-    void initMonsterCardDeck(){
+    private void initMonsterCardDeck(){
+        this.usedMonsters.clear();
         
         Prize prize = new Prize(2,1);      
         BadConsequence badConsequence = new BadConsequence("Pierdes tu armadura visible y otra oculta",
@@ -232,6 +227,8 @@ public class CardDealer {
                         new ArrayList());
         prize = new Prize(1,1);
         this.unusedMonsters.add(new Monster("Bicéfalo", 20, badConsequence, prize));
+        
+        this.shuffleMonsters();
     }
     
     

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package Model;
 
 /**
  *
@@ -41,7 +41,8 @@ public class Monster {
     }
                 
     public String toString(){
-        return this.name + " [lvl " + Integer.toString(this.combatLevel) + "]";
+        return this.name + " [lvl " + Integer.toString(this.combatLevel) + "]\n"
+                + this.badConsequence.getText();
     }
     
 }

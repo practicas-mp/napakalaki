@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package Model;
 
 /**
  *
@@ -26,6 +26,7 @@ public class Prize {
         return this.treasures;
     }
     
+    @Override
     public String toString(){
         return Integer.toString(this.treasures) + " treasures & " +
                 Integer.toString(this.levels) + " levels";

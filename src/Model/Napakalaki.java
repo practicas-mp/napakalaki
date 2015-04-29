@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +35,7 @@ public class Napakalaki {
     }
     
     public CombatResult combat(){
+        CardDealer.getInstance().giveMonsterBack(this.currentMonster);
         return this.currentPlayer.combat(this.currentMonster);
     }
     
@@ -56,9 +57,7 @@ public class Napakalaki {
     
     public void initGame(ArrayList<String> players){
         this.initPlayers(players);
-        CardDealer dealer = CardDealer.getInstance();
-        dealer.initMonsterCardDeck();
-        dealer.initTreasureCardDeck();
+        CardDealer.getInstance().initCards();
         
         this.nextTurn();
     }
@@ -84,19 +83,22 @@ public class Napakalaki {
     }
     
     public boolean nextTurn(){
-        if(this.nextTurnAllowed()){
+        if(this.nextTurnIsAllowed()){
             this.nextPlayer();
             this.currentMonster = CardDealer.getInstance().nextMonster();
             
             if(this.currentPlayer.isDead()){
-                this.currentPlayer.bringToLife();
                 this.currentPlayer.initTreasures();
             }
+            
+            return true;
         }
+        
+        return false;
     }
     
     public boolean nextTurnIsAllowed(){
-        return this.currentPlayer.validState();
+        return this.currentPlayer == null || this.currentPlayer.validState();  
     }
     
     public boolean endOfGame(CombatResult result){
