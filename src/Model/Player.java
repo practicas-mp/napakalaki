@@ -25,12 +25,13 @@ public class Player {
     public Player(String name){
         this.level = 1;
         this.name = name;
+        this.dead = true;
         this.visibleTreasures = new ArrayList <Treasure>();
         this.hiddenTreasures = new ArrayList <Treasure>();
     }
     
     private void bringToLife() {
-        dead = false;
+        this.dead = false;
     }
     
     private void incrementLevels(int levels) {
@@ -130,14 +131,9 @@ public class Player {
     }
     
     public void applyBadConsequence(BadConsequence bc){
-        if(bc.kills()){
-            this.die();
-        } else {
-            this.decrementLevels(bc.getLevels());
-            BadConsequence adjusted = bc.adjustToFitTreasureLists(this.visibleTreasures, this.hiddenTreasures);
-            this.setPendingBadConsequence(adjusted);
-        }
-    
+        this.decrementLevels(bc.getLevels());
+        BadConsequence adjusted = bc.adjustToFitTreasureLists(this.visibleTreasures, this.hiddenTreasures);
+        this.setPendingBadConsequence(adjusted);    
     }
     
     public boolean canMakeTreasureVisible(Treasure t){
@@ -178,17 +174,23 @@ public class Player {
     public void discardVisibleTreasure(Treasure t){
         this.visibleTreasures.remove(t);
         
-        if(this.pendingBadConsequence != null){
+        if(this.pendingBadConsequence != null && !this.pendingBadConsequence.isEmpty()){
             this.pendingBadConsequence.substractVisibleTreasure(t);
         }
+        
+        CardDealer.getInstance().giveTreasureBack(t);
+        this.dieIfNoTreasures();
     }
     
     public void discardHiddenTreasure(Treasure t){
         this.hiddenTreasures.remove(t);
         
-        if(this.pendingBadConsequence != null){
+        if(this.pendingBadConsequence != null && !this.pendingBadConsequence.isEmpty()){
             this.pendingBadConsequence.substractHiddenTreasure(t);
         }
+        
+        CardDealer.getInstance().giveTreasureBack(t);
+        this.dieIfNoTreasures();
     }
     
     public boolean buyLevels(ArrayList<Treasure> visible,  ArrayList<Treasure> hidden) {
@@ -225,13 +227,9 @@ public class Player {
         return combatLevel; 
     } 
 
-    public boolean validState() {
-        if(this.hiddenTreasures.size() > 4){
-            System.out.println("muxios teosoros!!1!");
-        }
-        
+    public boolean validState(){        
         return (this.pendingBadConsequence == null || this.pendingBadConsequence.isEmpty()) 
-                    && this.hiddenTreasures.size() <= 4;
+                    && this.hiddenTreasures.size() <= MAXHIDDENTREASURES;
     }
     public void initTreasures(){
         this.bringToLife();

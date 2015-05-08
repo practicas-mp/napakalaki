@@ -35,8 +35,9 @@ public class Napakalaki {
     }
     
     public CombatResult combat(){
+        CombatResult result = this.currentPlayer.combat(this.currentMonster);
         CardDealer.getInstance().giveMonsterBack(this.currentMonster);
-        return this.currentPlayer.combat(this.currentMonster);
+        return result;
     }
     
     public void discardVisibleTreasure(Treasure t){
@@ -47,8 +48,14 @@ public class Napakalaki {
         this.currentPlayer.discardHiddenTreasure(t);
     }
     
-    public void makeTreasureVisible(Treasure t){
-    
+    public boolean makeTreasureVisible(Treasure t){
+        boolean allowed = this.canMakeTreasureVisible(t);
+        
+        if(allowed){
+            this.currentPlayer.makeTreasureVisible(t);
+        }
+        
+        return allowed;    
     }
     
     public void buyLevels(ArrayList<Treasure> visible, ArrayList<Treasure> hidden){
@@ -71,15 +78,15 @@ public class Napakalaki {
     }
     
     public boolean canMakeTreasureVisible(Treasure t){
-        return false;
+        return this.currentPlayer.canMakeTreasureVisible(t);
     }
     
-    public Treasure[] getVisibleTreasures(){
-        return null;
+    public ArrayList <Treasure> getVisibleTreasures(){
+        return this.currentPlayer.getVisibleTreasures();
     }
     
-    public Treasure[] getHiddenTreasures(){
-        return null;
+    public ArrayList <Treasure> getHiddenTreasures(){
+        return this.currentPlayer.getHiddenTreasures();
     }
     
     public boolean nextTurn(){
