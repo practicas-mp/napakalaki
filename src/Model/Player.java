@@ -6,6 +6,7 @@
 package Model;
 
 import java.util.ArrayList;
+import Model.BadConsequences.BadConsequence;
 
 /**
  *
@@ -28,6 +29,15 @@ public class Player {
         this.dead = true;
         this.visibleTreasures = new ArrayList <Treasure>();
         this.hiddenTreasures = new ArrayList <Treasure>();
+    }
+    
+    
+    public Player(Player other){
+        this.level = other.level;
+        this.name = other.name;
+        this.dead = other.dead;
+        this.visibleTreasures = other.visibleTreasures;
+        this.hiddenTreasures = other.hiddenTreasures;
     }
     
     private void bringToLife() {
@@ -104,8 +114,12 @@ public class Player {
         
     }
     
+    public int getOponentLevel(Monster m){
+        return m.getBasicValue();
+    }
+    
     public CombatResult combat(Monster monster){ 
-        int lvl = this.getCombatLevel(), monsterLevel = monster.getLevel();
+        int lvl = this.getCombatLevel(), monsterLevel = this.getOponentLevel(monster);
         CombatResult result;
         
         if(lvl > monsterLevel){
@@ -120,7 +134,11 @@ public class Player {
                 result = CombatResult.LOSEANDDIE;
             } else {
                 this.applyBadConsequence(monster.getBadConsequence());
-                result = CombatResult.LOSE;
+                if (this.shouldConvert()){
+                    result = CombatResult.LOSEANDCONVERT;
+                } else {
+                    result = CombatResult.LOSE;
+                }
             }
         }
         
@@ -279,6 +297,15 @@ public class Player {
     public String getName(){
         return this.name;
     }
+    
+    public int getOponentLevel(){
+        return -1; // Escribir metodo
+    }
+    
+    public Boolean shouldConvert() {
+        return Dice.getInstance().nextNumber() == 6;
+    }
+    
     
     @Override
     public String toString(){

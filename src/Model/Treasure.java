@@ -9,7 +9,7 @@ package Model;
  *
  * @author braulio
  */
-public class Treasure {
+public class Treasure implements Card {
     private String name;
     private int goldCoins;
     private int minBonus;
@@ -48,6 +48,16 @@ public class Treasure {
     public String toString(){
         return this.name + " [" + this.minBonus + "/" + this.maxBonus + "] ::" + this.type
                 + " $" + this.goldCoins;
+    }
+
+    @Override
+    public int getBasicValue() {
+        return getMinBonus();
+    }
+
+    @Override
+    public int getSpecialValue() {
+        return getMaxBonus();
     }
     
 }

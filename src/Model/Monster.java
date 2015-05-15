@@ -4,24 +4,35 @@
  * and open the template in the editor.
  */
 package Model;
+import Model.BadConsequences.BadConsequence;
 
 /**
  *
  * @author braulio
  */
-public class Monster {
+public class Monster implements Card {
     private String name;
     private int combatLevel;
+    private int levelChangeAgainstCultistPlayer;
     private Prize prize;
     private BadConsequence badConsequence;
     
+    
     public Monster(String name, int combatLevel,
+            BadConsequence bc, 
+            Prize prize){
+        this(name, combatLevel, 0, bc, prize);
+        
+    }
+    
+    public Monster(String name, int combatLevel, int levelChangeAgainstCultistPlayer,
             BadConsequence bc, 
             Prize prize){
         this.name = name;
         this.combatLevel = combatLevel;
         this.prize = prize;
         this.badConsequence = bc;
+        this.levelChangeAgainstCultistPlayer = levelChangeAgainstCultistPlayer;
     }
     
     public String getName(){
@@ -43,6 +54,16 @@ public class Monster {
     public String toString(){
         return this.name + " [lvl " + Integer.toString(this.combatLevel) + "]\n"
                 + this.badConsequence.getText();
+    }
+
+    @Override
+    public int getBasicValue() {
+        return getLevel();
+    }
+
+    @Override
+    public int getSpecialValue() {
+        return getLevel() + levelChangeAgainstCultistPlayer;
     }
     
 }

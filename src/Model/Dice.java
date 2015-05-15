@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class Dice {
     private static Dice instance;
-    Random rand;
+    private Random rand;
     
     private Dice() {
         rand = new Random();

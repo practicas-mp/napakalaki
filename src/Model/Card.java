@@ -9,6 +9,8 @@ package Model;
  *
  * @author braulio
  */
-public enum CombatResult {
-    WINANDWINGAME, WIN, LOSE, LOSEANDESCAPE, LOSEANDDIE, LOSEANDCONVERT
+public interface Card {
+    public int getBasicValue();
+    
+    public int getSpecialValue();
 }
