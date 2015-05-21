@@ -310,7 +310,7 @@ public class Player {
     }
     
     public Boolean shouldConvert() {
-        Boolean shouldConvert = Dice.getInstance().nextNumber() > 1;
+        Boolean shouldConvert = Dice.getInstance().nextNumber() == 6;
         
         if (shouldConvert){
             System.out.println("El jugador se ha convertido en un SECTARIO!!!!!!!111!!");
