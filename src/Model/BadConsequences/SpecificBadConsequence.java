@@ -98,4 +98,19 @@ public class SpecificBadConsequence extends BadConsequence {
         }
     }
     
+    public String treasuresToString(ArrayList<TreasureKind> treasures){
+       String result = "[";
+       for(TreasureKind t : treasures){
+           result += t.toString() + " ";
+       }
+       result += "]";
+       return result;
+    }
+    
+    @Override
+    public String toString(){
+        return PROMPT + " v: " + 
+                   treasuresToString(specificVisibleTreasures) + " h:" + treasuresToString(specificHiddenTreasures);
+    }
+    
 }

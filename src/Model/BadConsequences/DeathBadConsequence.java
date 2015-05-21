@@ -44,5 +44,7 @@ public class DeathBadConsequence extends BadConsequence {
         // no sense here
     }
     
+
+    
     
 }

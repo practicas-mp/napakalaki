@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public abstract class BadConsequence {
     
-    protected static String badConsequencePrompt = "Esto es un mal rollo con el siguiente contenido";
+    protected static String PROMPT = "Esto es un mal rollo con el siguiente contenido";
 
     private String text;
     private int levels;
@@ -46,7 +46,7 @@ public abstract class BadConsequence {
     
     @Override
     public String toString(){
-        return badConsequencePrompt + ": " + text;
+        return PROMPT + ": " + text;
     }
     
 }

@@ -51,4 +51,9 @@ public class UnspecificBadConsequence extends BadConsequence {
         --this.nHiddenTreasures;
     }
     
+    @Override
+    public String toString(){
+        return PROMPT + " v: " + nVisibleTreasures + " h: " + nHiddenTreasures;
+    }
+    
 }
