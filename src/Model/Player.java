@@ -36,8 +36,8 @@ public class Player {
         this.level = other.level;
         this.name = other.name;
         this.dead = other.dead;
-        this.visibleTreasures = other.visibleTreasures;
-        this.hiddenTreasures = other.hiddenTreasures;
+        this.visibleTreasures = (ArrayList<Treasure>)other.visibleTreasures.clone();
+        this.hiddenTreasures = (ArrayList<Treasure>)other.hiddenTreasures.clone();
     }
     
     private void bringToLife() {
@@ -85,7 +85,7 @@ public class Player {
     
     private void dieIfNoTreasures() {
         if (this.hiddenTreasures.isEmpty() && this.visibleTreasures.isEmpty()) {
-            this.die();
+            this.dead = true;
         }
     }
         
@@ -245,9 +245,16 @@ public class Player {
         return combatLevel; 
     } 
 
-    public boolean validState(){        
-        return (this.pendingBadConsequence == null || this.pendingBadConsequence.isEmpty()) 
+    public boolean validState(){  
+        Boolean allowed = (this.pendingBadConsequence == null || this.pendingBadConsequence.isEmpty()) 
                     && this.hiddenTreasures.size() <= MAXHIDDENTREASURES;
+        
+        if (!allowed){
+            if (this.pendingBadConsequence != null)
+                System.out.println(this.pendingBadConsequence.toString());
+        }
+        
+        return allowed;
     }
     public void initTreasures(){
         this.bringToLife();
@@ -303,12 +310,18 @@ public class Player {
     }
     
     public Boolean shouldConvert() {
-        return Dice.getInstance().nextNumber() == 6;
+        Boolean shouldConvert = Dice.getInstance().nextNumber() > 1;
+        
+        if (shouldConvert){
+            System.out.println("El jugador se ha convertido en un SECTARIO!!!!!!!111!!");
+        }
+        
+        return shouldConvert;
     }
     
     
     @Override
     public String toString(){
-        return this.getName() + "[lvl " + this.level + "]";
+        return this.getName() + "[lvl " + this.level + "] [cmbtLvl " + this.getCombatLevel() + " ]";
     }
 }

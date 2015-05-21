@@ -30,6 +30,7 @@ public class CultistPlayer extends Player {
     public CultistPlayer(Player other, Cultist card){
         super(other);
         myCultistCard = card;
+        totalCultistPlayers++;
     }
     
     @Override
@@ -44,7 +45,7 @@ public class CultistPlayer extends Player {
     
     @Override
     public Boolean shouldConvert(){
-        return false; // Implementar
+        return false; 
     }
     
     @Override

@@ -44,5 +44,10 @@ public abstract class BadConsequence {
         return levels;
     }
     
+    @Override
+    public String toString(){
+        return badConsequencePrompt + ": " + text;
+    }
+    
 }
 

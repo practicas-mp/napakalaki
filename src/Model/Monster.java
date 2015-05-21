@@ -53,7 +53,7 @@ public class Monster implements Card {
                 
     public String toString(){
         return this.name + " [lvl " + Integer.toString(this.combatLevel) + "]\n"
-                + this.badConsequence.getText();
+                + this.badConsequence.getText() + " [sctLvl " + getSpecialValue() + " ]";
     }
 
     @Override

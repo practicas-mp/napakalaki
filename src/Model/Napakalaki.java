@@ -56,6 +56,7 @@ public class Napakalaki {
     }
     
     public boolean makeTreasureVisible(Treasure t){
+       
         boolean allowed = this.canMakeTreasureVisible(t);
         
         if(allowed){
@@ -112,7 +113,8 @@ public class Napakalaki {
     }
     
     public boolean nextTurnIsAllowed(){
-        return this.currentPlayer == null || this.currentPlayer.validState();  
+        Boolean allowed = this.currentPlayer == null || this.currentPlayer.validState();
+        return allowed;  
     }
     
     public boolean endOfGame(CombatResult result){

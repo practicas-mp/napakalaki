@@ -76,7 +76,8 @@ public class CardDealer {
     }
     
     public Cultist nextCultist(){
-        return null;
+        this.shuffleCultists();
+        return this.unusedCultist.get(0);
     }
     
     public void giveTreasureBack(Treasure t){
