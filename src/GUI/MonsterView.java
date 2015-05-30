@@ -30,6 +30,7 @@ public class MonsterView extends javax.swing.JPanel {
         badConsequence.setBadConsequence(m.getBadConsequence());
         prize.setPrize(m.getPrize());
         
+        repaint();
     }
 
     /**
