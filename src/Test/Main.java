@@ -3,6 +3,8 @@ package Test;
 import Model.Napakalaki;
 import Model.Dice;
 import GUI.NapakalakiView;
+import GUI.PlayerNamesCapture;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,6 +15,12 @@ public class Main {
         Napakalaki napakalakiModel = Napakalaki.getInstance();
         NapakalakiView napakalakiView = new NapakalakiView();
         Dice.createInstance(napakalakiView);
+        
+        ArrayList<String> playerNames;
+        PlayerNamesCapture namesCapture = new PlayerNamesCapture(napakalakiView, true);
+        playerNames = namesCapture.getNames();
+        napakalakiModel.initGame(playerNames);
+        
         
         napakalakiView.setNapakalaki(napakalakiModel);
         napakalakiView.showView();

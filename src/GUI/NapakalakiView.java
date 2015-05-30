@@ -59,7 +59,6 @@ public class NapakalakiView extends javax.swing.JFrame {
     public void showView() {
         this.setVisible(true);
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

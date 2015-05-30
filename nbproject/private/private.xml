@@ -4,14 +4,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/braulio/NetBeansProjects/Napakalaki/src/Model/BadConsequences/UnspecificBadConsequence.java</file>
             <file>file:/home/braulio/NetBeansProjects/Napakalaki/src/Model/Treasure.java</file>
-            <file>file:/home/braulio/NetBeansProjects/Napakalaki/src/Model/CardDealer.java</file>
+            <file>file:/home/braulio/NetBeansProjects/Napakalaki/src/Model/BadConsequences/DeathBadConsequence.java</file>
             <file>file:/home/braulio/NetBeansProjects/Napakalaki/src/Model/Player.java</file>
-            <file>file:/home/braulio/NetBeansProjects/Napakalaki/src/Model/CultistPlayer.java</file>
-            <file>file:/home/braulio/NetBeansProjects/Napakalaki/src/Model/Monster.java</file>
-            <file>file:/home/braulio/NetBeansProjects/Napakalaki/src/Model/Napakalaki.java</file>
+            <file>file:/home/braulio/NetBeansProjects/Napakalaki/src/Model/BadConsequences/SpecificBadConsequence.java</file>
             <file>file:/home/braulio/NetBeansProjects/Napakalaki/src/Model/BadConsequences/BadConsequence.java</file>
-            <file>file:/home/braulio/NetBeansProjects/Napakalaki/src/Model/Cultist.java</file>
         </group>
     </open-files>
 </project-private>
