@@ -31,6 +31,8 @@ public class TreasureView extends javax.swing.JPanel {
         goldValue.setText(t.getGoldCoins() + "");
         type.setText(t.getType().toString());
         
+        repaint();
+        
     }
     
     /**
