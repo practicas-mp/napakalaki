@@ -6,6 +6,7 @@
 package GUI;
 
 import Model.Treasure;
+import java.awt.Color;
 
 /**
  *
@@ -14,6 +15,7 @@ import Model.Treasure;
 public class TreasureView extends javax.swing.JPanel {
 
     Treasure treasureModel;
+    Boolean selected = false;
     
     /**
      * Creates new form TreasureView
@@ -35,6 +37,14 @@ public class TreasureView extends javax.swing.JPanel {
         
     }
     
+    public Boolean isSelected(){
+        return selected;
+    }
+    
+    public Treasure getTreasure(){
+        return treasureModel;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +59,12 @@ public class TreasureView extends javax.swing.JPanel {
         maxBonus = new javax.swing.JLabel();
         goldValue = new javax.swing.JLabel();
         type = new javax.swing.JLabel();
+
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         name.setText("Nombre");
 
@@ -94,6 +110,12 @@ public class TreasureView extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        selected = !selected;
+        setBackground(selected? Color.GREEN : Color.lightGray);
+        repaint();
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
