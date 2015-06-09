@@ -47,6 +47,12 @@ public class PlayerView extends javax.swing.JPanel {
         napakalakiModel = n;
     }
     
+    public void setEnabledControls(boolean flag){
+        this.buyLevelsButton.setEnabled(flag);
+        this.makeVisibleButton.setEnabled(flag);
+        this.discardTreasuresButton.setEnabled(flag);
+    }
+    
     public ArrayList<Treasure> getSelectedTreasures(JPanel aPanel) {
         // Se recorren los tesoros que contiene el panel,
         // almacenando en un vector aquellos que están seleccionados.
@@ -109,8 +115,18 @@ public class PlayerView extends javax.swing.JPanel {
         jLabel2.setText("Nivel");
 
         buyLevelsButton.setText("Buy levels");
+        buyLevelsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buyLevelsButtonMouseClicked(evt);
+            }
+        });
 
         discardTreasuresButton.setText("Discard Treasures");
+        discardTreasuresButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                discardTreasuresButtonMouseClicked(evt);
+            }
+        });
 
         makeVisibleButton.setText("Make Visible");
         makeVisibleButton.addActionListener(new java.awt.event.ActionListener() {
@@ -145,19 +161,19 @@ public class PlayerView extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(makeVisibleButton)
-                        .addGap(80, 80, 80))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(discardTreasuresButton)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(buyLevelsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(19, 19, 19)))
-                        .addGap(56, 56, 56))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(12, 12, 12)
+                            .addComponent(makeVisibleButton)
+                            .addGap(80, 80, 80))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap()))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buyLevelsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(discardTreasuresButton)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,9 +192,9 @@ public class PlayerView extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(buyLevelsButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(discardTreasuresButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(discardTreasuresButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(makeVisibleButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,9 +209,32 @@ public class PlayerView extends javax.swing.JPanel {
         for (Treasure t: selHidden)
             napakalakiModel.makeTreasureVisible(t);
         
-        setPlayer(napakalakiModel.getCurrentPlayer());
+        setPlayer(this.playerModel);
         
     }//GEN-LAST:event_makeVisibleButtonActionPerformed
+
+    private void discardTreasuresButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_discardTreasuresButtonMouseClicked
+        ArrayList <Treasure> visible = this.getSelectedTreasures(this.visibleTreasures),
+                            hidden = this.getSelectedTreasures(this.hiddenTreasures);
+        
+        for(Treasure v: visible){
+            this.playerModel.discardVisibleTreasure(v);     
+        }
+        
+        for(Treasure h: hidden){
+            this.playerModel.discardVisibleTreasure(h);     
+        }
+        
+        this.setPlayer(this.playerModel);
+    }//GEN-LAST:event_discardTreasuresButtonMouseClicked
+
+    private void buyLevelsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyLevelsButtonMouseClicked
+        ArrayList <Treasure> visible = this.getSelectedTreasures(this.visibleTreasures),
+                            hidden = this.getSelectedTreasures(this.hiddenTreasures);
+        
+        this.napakalakiModel.buyLevels(visible, hidden);
+        this.setPlayer(this.playerModel);
+    }//GEN-LAST:event_buyLevelsButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

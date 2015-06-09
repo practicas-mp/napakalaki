@@ -305,10 +305,6 @@ public class Player {
         return this.name;
     }
     
-    public int getOponentLevel(){
-        return -1; // Escribir metodo
-    }
-    
     public Boolean shouldConvert() {
         Boolean shouldConvert = Dice.getInstance().nextNumber() == 6;
         
