@@ -97,17 +97,17 @@ public class NapakalakiView extends javax.swing.JFrame {
 
         combatButton.setText("Combat");
         combatButton.setEnabled(false);
-        combatButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                combatButtonMouseClicked(evt);
+        combatButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combatButtonActionPerformed(evt);
             }
         });
 
         nextTurnButton.setText("Next turn");
         nextTurnButton.setEnabled(false);
-        nextTurnButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nextTurnButtonMouseClicked(evt);
+        nextTurnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextTurnButtonActionPerformed(evt);
             }
         });
 
@@ -163,7 +163,7 @@ public class NapakalakiView extends javax.swing.JFrame {
         this.currentPlayer.setEnabledControls(false);
     }//GEN-LAST:event_showMonsterButtonActionPerformed
 
-    private void combatButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_combatButtonMouseClicked
+    private void combatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combatButtonActionPerformed
         this.lastCombatResult = this.napakalakiModel.combat();  // TODO: manage combat result
         this.combatResultMessage.setText(this.combatResultText(this.lastCombatResult));
         showMessageDialog(null, this.combatResultText(this.lastCombatResult));
@@ -172,9 +172,9 @@ public class NapakalakiView extends javax.swing.JFrame {
         this.currentPlayer.setEnabledControls(true);
         this.nextTurnButton.setEnabled(true);
         this.currentPlayer.setPlayer(this.currentPlayer.playerModel);  // redraw UI (new treasures)
-    }//GEN-LAST:event_combatButtonMouseClicked
+    }//GEN-LAST:event_combatButtonActionPerformed
 
-    private void nextTurnButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextTurnButtonMouseClicked
+    private void nextTurnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextTurnButtonActionPerformed
         if(this.lastCombatResult == CombatResult.WINANDWINGAME){
             System.exit(0);
         } else if(this.napakalakiModel.nextTurn()){
@@ -184,7 +184,7 @@ public class NapakalakiView extends javax.swing.JFrame {
             this.showMonsterButton.setEnabled(true);
             this.setNapakalaki(this.napakalakiModel);
         }
-    }//GEN-LAST:event_nextTurnButtonMouseClicked
+    }//GEN-LAST:event_nextTurnButtonActionPerformed
 
     public void showView() {
         this.setVisible(true);

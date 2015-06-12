@@ -129,11 +129,6 @@ public class PlayerView extends javax.swing.JPanel {
         jLabel2.setText("Nivel");
 
         buyLevelsButton.setText("Buy levels");
-        buyLevelsButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buyLevelsButtonMouseClicked(evt);
-            }
-        });
         buyLevelsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buyLevelsButtonActionPerformed(evt);
@@ -141,9 +136,9 @@ public class PlayerView extends javax.swing.JPanel {
         });
 
         discardTreasuresButton.setText("Discard Treasures");
-        discardTreasuresButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                discardTreasuresButtonMouseClicked(evt);
+        discardTreasuresButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                discardTreasuresButtonActionPerformed(evt);
             }
         });
 
@@ -246,7 +241,15 @@ public class PlayerView extends javax.swing.JPanel {
         
     }//GEN-LAST:event_makeVisibleButtonActionPerformed
 
-    private void discardTreasuresButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_discardTreasuresButtonMouseClicked
+    private void buyLevelsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyLevelsButtonActionPerformed
+        ArrayList <Treasure> visible = this.getSelectedTreasures(this.visibleTreasures),
+                            hidden = this.getSelectedTreasures(this.hiddenTreasures);
+        
+        this.napakalakiModel.buyLevels(visible, hidden);
+        this.setPlayer(this.playerModel);
+    }//GEN-LAST:event_buyLevelsButtonActionPerformed
+
+    private void discardTreasuresButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discardTreasuresButtonActionPerformed
         ArrayList <Treasure> visible = this.getSelectedTreasures(this.visibleTreasures),
                             hidden = this.getSelectedTreasures(this.hiddenTreasures);
         
@@ -259,19 +262,7 @@ public class PlayerView extends javax.swing.JPanel {
         }
         
         this.setPlayer(this.playerModel);
-    }//GEN-LAST:event_discardTreasuresButtonMouseClicked
-
-    private void buyLevelsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyLevelsButtonMouseClicked
-        ArrayList <Treasure> visible = this.getSelectedTreasures(this.visibleTreasures),
-                            hidden = this.getSelectedTreasures(this.hiddenTreasures);
-        
-        this.napakalakiModel.buyLevels(visible, hidden);
-        this.setPlayer(this.playerModel);
-    }//GEN-LAST:event_buyLevelsButtonMouseClicked
-
-    private void buyLevelsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyLevelsButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buyLevelsButtonActionPerformed
+    }//GEN-LAST:event_discardTreasuresButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
