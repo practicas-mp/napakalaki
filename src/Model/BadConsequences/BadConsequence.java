@@ -18,8 +18,8 @@ public abstract class BadConsequence {
     
     protected static String PROMPT = "Esto es un mal rollo con el siguiente contenido";
 
-    private String text;
-    private int levels;
+    private final String text;
+    private final int levels;
     
     public BadConsequence(String text, int levels){
         this.text = text;

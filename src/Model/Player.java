@@ -127,7 +127,7 @@ public class Player {
             
             return this.level < 10 ? CombatResult.WIN : CombatResult.WINANDWINGAME;
         } else {
-            if(Dice.getInstance().nextNumber() >= 5){
+            if(Dice.getInstance().nextNumber("¿Escaparás?", "Saca un 5 o más") >= 5){
                 result = CombatResult.LOSEANDESCAPE;
             } else if(monster.getBadConsequence().kills()){
                 this.die();
@@ -259,7 +259,7 @@ public class Player {
     public void initTreasures(){
         this.bringToLife();
         
-        int roll = Dice.getInstance().nextNumber(), treasures;
+        int roll = Dice.getInstance().nextNumber("Consigue tesoros", "1 -> 1 tesoro, 6 -> 3 tesoros. En cualquier otro caso, 2 tesoros"), treasures;
         
         switch(roll){
             case 1:
@@ -306,11 +306,9 @@ public class Player {
     }
     
     public Boolean shouldConvert() {
-        Boolean shouldConvert = Dice.getInstance().nextNumber() == 6;
+        Boolean shouldConvert = Dice.getInstance().nextNumber("Te llaman de la secta", "Si sacas un 6, te convertirás en sectario") == 6;
         
-        if (shouldConvert){
-            System.out.println("El jugador se ha convertido en un SECTARIO!!!!!!!111!!");
-        }
+ 
         
         return shouldConvert;
     }

@@ -12,6 +12,7 @@ package GUI;
 
 import Model.Napakalaki;
 import Model.CombatResult;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -23,6 +24,8 @@ public class NapakalakiView extends javax.swing.JFrame {
     CombatResult lastCombatResult;
     
     public void setNapakalaki(Napakalaki napakalaki){
+        
+        
         this.napakalakiModel = napakalaki;
         
         currentPlayer.setPlayer(napakalaki.getCurrentPlayer());
@@ -64,6 +67,7 @@ public class NapakalakiView extends javax.swing.JFrame {
     /** Creates new form NapakalakiView */
     public NapakalakiView() {
         initComponents();
+        this.setTitle("Napakalaki");
     }
 
     /** This method is called from within the constructor to
@@ -113,7 +117,7 @@ public class NapakalakiView extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(35, 35, 35)
-                .add(currentPlayer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                .add(currentPlayer, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(currentMonster, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 475, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(22, 22, 22))
@@ -162,6 +166,7 @@ public class NapakalakiView extends javax.swing.JFrame {
     private void combatButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_combatButtonMouseClicked
         this.lastCombatResult = this.napakalakiModel.combat();  // TODO: manage combat result
         this.combatResultMessage.setText(this.combatResultText(this.lastCombatResult));
+        showMessageDialog(null, this.combatResultText(this.lastCombatResult));
         this.combatResultMessage.setVisible(true);
         this.combatButton.setEnabled(false);
         this.currentPlayer.setEnabledControls(true);
