@@ -183,6 +183,8 @@ public class NapakalakiView extends javax.swing.JFrame {
             this.nextTurnButton.setEnabled(false);
             this.showMonsterButton.setEnabled(true);
             this.setNapakalaki(this.napakalakiModel);
+        } else {
+            showMessageDialog(null, "Asegúrate de cumplir el mal rollo y de no tener mas de 4 tesoros escondidos");
         }
     }//GEN-LAST:event_nextTurnButtonActionPerformed
 

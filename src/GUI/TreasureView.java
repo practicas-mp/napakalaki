@@ -28,9 +28,9 @@ public class TreasureView extends javax.swing.JPanel {
         treasureModel = t;
         
         name.setText(t.getName());
-        minBonus.setText(t.getMinBonus() + "");
-        maxBonus.setText(t.getMaxBonus() + "");
-        goldValue.setText(t.getGoldCoins() + "");
+        minBonus.setText(t.getMinBonus() + "pts");
+        maxBonus.setText(t.getMaxBonus() + "pts");
+        goldValue.setText(t.getGoldCoins() + "$");
         type.setText(t.getType().toString());
         
         repaint();
@@ -54,19 +54,25 @@ public class TreasureView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        name = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         minBonus = new javax.swing.JLabel();
         maxBonus = new javax.swing.JLabel();
         goldValue = new javax.swing.JLabel();
         type = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        name = new javax.swing.JTextArea();
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
             }
         });
-
-        name.setText("Nombre");
 
         minBonus.setText("jLabel1");
 
@@ -76,38 +82,43 @@ public class TreasureView extends javax.swing.JPanel {
 
         type.setText("jLabel1");
 
+        name.setEditable(false);
+        name.setColumns(20);
+        name.setRows(5);
+        jScrollPane2.setViewportView(name);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(22, 22, 22)
+                        .addComponent(minBonus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(maxBonus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(goldValue)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(type))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(minBonus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(maxBonus)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(25, 25, 25)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minBonus)
+                    .addComponent(maxBonus)
                     .addComponent(goldValue)
                     .addComponent(type))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(maxBonus)
-                    .addComponent(minBonus))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -120,9 +131,12 @@ public class TreasureView extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel goldValue;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel maxBonus;
     private javax.swing.JLabel minBonus;
-    private javax.swing.JLabel name;
+    private javax.swing.JTextArea name;
     private javax.swing.JLabel type;
     // End of variables declaration//GEN-END:variables
 }
