@@ -259,7 +259,7 @@ public class Player {
     public void initTreasures(){
         this.bringToLife();
         
-        int roll = Dice.getInstance().nextNumber("Consigue tesoros", "1 -> 1 tesoro, 6 -> 3 tesoros. En cualquier otro caso, 2 tesoros"), treasures;
+        int roll = Dice.getInstance().nextNumber("Consigue tesoros, " + this.getName(), "1 -> 1 tesoro, 6 -> 3 tesoros. En cualquier otro caso, 2 tesoros"), treasures;
         
         switch(roll){
             case 1:
